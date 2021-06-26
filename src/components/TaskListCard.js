@@ -1,17 +1,34 @@
-import { Card, List, message, Modal, Typography, Input, Button } from "antd";
+import {
+  Card,
+  List,
+  message,
+  Modal,
+  Typography,
+  Input,
+  Button,
+  Skeleton,
+  Empty,
+} from "antd";
 import React, { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
-import { updateTask, deleteTask, getAllTasks } from "../service/taskAPI";
+import { updateTask, deleteTask, getAllTasks } from "../Service/taskAPI";
 const { Title } = Typography;
 
-export default function TaskListCard() {
-  const [taskList, setTaskList] = useState([]);
+export default function TaskListCard({
+  filteredTask,
+  setFilteredTask,
+  setReloadData,
+}) {
   const [isEditingModalVisible, setIsEditingModalVisible] = useState(false);
   const [taskName, setTaskName] = useState("");
   const [editingTaskData, setEditingTaskData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     getAllTaskListData();
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   function markTaskToUpdate(taskItem) {
@@ -31,8 +48,7 @@ export default function TaskListCard() {
 
   async function getAllTaskListData() {
     const taskListDataResult = await getAllTasks();
-    message.success(taskListDataResult.msg);
-    setTaskList(taskListDataResult.tasks);
+    setFilteredTask(taskListDataResult.tasks);
   }
 
   async function markTaskCompleted(taskItem) {
@@ -43,6 +59,7 @@ export default function TaskListCard() {
     const updateResult = await updateTask(taskItem._id, param);
     message.success(updateResult.msg);
     getAllTaskListData();
+    setReloadData(true);
   }
 
   async function markTaskDeleted(taskId) {
@@ -53,24 +70,33 @@ export default function TaskListCard() {
 
   return (
     <Card>
-      <List>
-        {taskList.map((taskItem) => {
-          return (
-            <TaskItem
-              taskItem={taskItem}
-              markTaskCompleted={markTaskCompleted}
-              markTaskDeleted={markTaskDeleted}
-              markTaskToUpdate={markTaskToUpdate}
-            />
-          );
-        })}
-      </List>
+      {isLoading ? (
+        <Skeleton />
+      ) : (
+        <List>
+          {filteredTask.length ? (
+            filteredTask.map((taskItem) => {
+              return (
+                <TaskItem
+                  key={taskItem.name}
+                  taskItem={taskItem}
+                  markTaskCompleted={markTaskCompleted}
+                  markTaskDeleted={markTaskDeleted}
+                  markTaskToUpdate={markTaskToUpdate}
+                />
+              );
+            })
+          ) : (
+            <Empty description={<b>No task found</b>} />
+          )}
+        </List>
+      )}
       <Modal
+        title="+ New Task"
         footer={null}
         visible={isEditingModalVisible}
         onCancel={() => setIsEditingModalVisible(false)}
       >
-        <Title level={4}>+ New Task</Title>
         <Input
           value={taskName}
           onChange={(e) => setTaskName(e.target.value)}
