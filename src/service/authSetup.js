@@ -1,6 +1,6 @@
 import axios from "axios";
 import { domainURL } from "./domainURL";
-const accessToken = localStorage.getItem("userToken");
+const accessToken = localStorage.getItem("user_token");
 
 export const authAxios = axios.create({
   baseURL: domainURL,
