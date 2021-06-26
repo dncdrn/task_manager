@@ -1,4 +1,4 @@
-import { authAxios } from "./authSetup";
+import authAxios from "./authSetup";
 
 export function getAllTasks() {
   return authAxios.get(`/tasks`).then((res) => res.data);
