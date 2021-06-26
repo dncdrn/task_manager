@@ -2,10 +2,10 @@ import { Card, Button } from "antd";
 import React from "react";
 import { StyledDiv } from "../Page/Login/LoginStyle";
 import { useHistory } from "react-router-dom";
-export default function NoTaskCard({ setIsAddingNewTask }) {
+
+export default function NoTaskCard() {
   const history = useHistory();
   function handleAdd() {
-    setIsAddingNewTask(true);
     history.push("/new_task");
   }
   return (
