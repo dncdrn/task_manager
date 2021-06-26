@@ -4,6 +4,7 @@ import { StyledDiv } from "./LoginStyle";
 import { loginAccount } from "../../service/loginAPI";
 import { Input, Form, Button, message } from "antd";
 import { useHistory } from "react-router-dom";
+import { SearchOutlined } from "@ant-design/icons";
 
 function LoginPage() {
   let history = useHistory();
@@ -14,6 +15,8 @@ function LoginPage() {
     const loginResult = await loginAccount(values);
     message.success(loginResult.msg);
     localStorage.setItem("user_token", loginResult.token.token);
+    localStorage.setItem("user_image", loginResult.image);
+    localStorage.setItem("user_name", loginResult.token.name);
     history.push("/dashboard");
   }
 
@@ -25,7 +28,7 @@ function LoginPage() {
             <Input placeholder="Id" />
           </Form.Item>
           <Form.Item name="name">
-            <Input placeholder="Name" />
+            <Input prefix={<SearchOutlined />} placeholder="Name" />
           </Form.Item>
           <Button type="primary" htmlType="submit">
             Login
