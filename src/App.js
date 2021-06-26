@@ -5,8 +5,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./Page/Dashboard";
 import "antd/dist/antd.css";
 
-const authed = localStorage.getItem("user_token");
-
 function App() {
   return (
     <Router>
@@ -14,11 +12,7 @@ function App() {
         <Route path="/" exact>
           <LoginPage />
         </Route>
-        <ProtectedRoute
-          path="/dashboard"
-          component={Dashboard}
-          authed={authed}
-        />
+        <ProtectedRoute path="/dashboard" component={Dashboard} />
       </Switch>
     </Router>
   );
