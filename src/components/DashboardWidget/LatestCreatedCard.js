@@ -10,15 +10,17 @@ export default function LatestCreatedCard({ dashboardWidgetClasses }) {
   return (
     <Card className={dashboardWidgetClasses.widgetCard}>
       {isLoading ? (
-        <Skeleton />
+        <Skeleton active />
       ) : (
         <>
-          <Title level={3}>Latest Created Tasks</Title>
+          <Title level={4}>Latest Created Tasks</Title>
           <ul>
             {latestTasks && latestTasks.length !== 0 ? (
               latestTasks.map((task) => (
                 <li key={task.name}>
-                  <Text delete={task.completed}>{task.name}</Text>
+                  <Title level={5} delete={task.completed}>
+                    {task.name}
+                  </Title>
                 </li>
               ))
             ) : (

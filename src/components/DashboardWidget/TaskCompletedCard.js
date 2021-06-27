@@ -13,10 +13,10 @@ export default function TaskCompletedCard({ dashboardWidgetClasses }) {
   return (
     <Card className={dashboardWidgetClasses.widgetCard}>
       {isLoading ? (
-        <Skeleton />
+        <Skeleton active />
       ) : (
         <>
-          <Title level={3}>Tasks Completed</Title>
+          <Title level={4}>Tasks Completed</Title>
           <div className={taskListClasses.completedContainer}>
             <Title className={taskListClasses.completedTitle}>
               {tasksCompleted}
