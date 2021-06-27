@@ -1,10 +1,10 @@
 import React from "react";
 import { Card } from "antd";
-import { loginAccount } from "../../service/loginAPI";
+import { loginAccount } from "../service/loginAPI";
 import { Input, Form, Button } from "antd";
 import { useHistory } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
-import dashboardStyle from "../../components/DashboardStyle";
+import dashboardStyle from "../components/DashboardStyle";
 import Title from "antd/lib/typography/Title";
 
 function LoginPage() {
