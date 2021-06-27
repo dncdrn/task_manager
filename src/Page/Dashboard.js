@@ -1,19 +1,18 @@
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
-import ChartGraph from "../Components/ChartGraph";
-import LatestCreatedCard from "../Components/LatestCreatedCard";
-import NoTaskCard from "../Components/NoTaskCard";
-import TaskCompletedCard from "../Components/TaskCompletedCard";
-import TaskListCard from "../Components/TaskListCard";
-import { getDashboardData } from "../Service/dashboardAPI";
+import NoTaskCard from "../components/NoTaskCard";
+import TaskListCard from "../components/DashboardTaskList/TaskListCard";
+import { getDashboardData } from "../service/dashboardAPI";
 import { Layout } from "antd";
 import Avatar from "antd/lib/avatar/avatar";
-import { domainURL } from "../Service/domainURL";
-import { SearchOutlined } from "@ant-design/icons";
+import { domainURL } from "../service/domainURL";
 import { useHistory } from "react-router-dom";
+import DashboardWidget from "../components/DashboardWidget/DashboardWidget";
+import TaskListHeader from "../components/DashboardTaskListHeader/TaskListHeader";
+import AddTaskModal from "../components/AddTaskModal";
+import { addTask } from "../service/taskAPI";
 
 const { Header, Content } = Layout;
-const accessToken = localStorage.getItem("user_token");
 
 function Dashboard() {
   const history = useHistory();
@@ -25,7 +24,16 @@ function Dashboard() {
   const [searchText, setSearchText] = useState("");
   const [filteredTask, setFilteredTask] = useState([]);
   const [reloadData, setReloadData] = useState(false);
+  const [taskName, setTaskName] = useState("");
+  const [isModalAddVisible, setIsModalAddVisible] = useState(false);
 
+  async function handleAddTask() {
+    const addTaskResult = await addTask({ name: taskName });
+    message.success(addTaskResult.msg);
+    setTaskName("");
+    setIsModalAddVisible(false);
+    setReloadData(true);
+  }
   async function loadDashboardData() {
     const dashboardResult = await getDashboardData();
     setTotalTasks(dashboardResult.totalTasks);
@@ -73,59 +81,36 @@ function Dashboard() {
       </Header>
       <Content>
         {totalTasks !== 0 ? (
-          <div style={{ padding: "40px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                flexFlow: "wrap",
-              }}
-            >
-              <TaskCompletedCard
-                isLoading={isLoading}
-                totalTasks={totalTasks}
-                tasksCompleted={tasksCompleted}
-              />
-              <LatestCreatedCard
-                isLoading={isLoading}
-                latestTasks={latestTasks}
-              />
-              <ChartGraph
-                isLoading={isLoading}
-                totalTasks={totalTasks}
-                tasksCompleted={tasksCompleted}
-              />
-            </div>
-
+          <>
+            <DashboardWidget
+              isLoading={isLoading}
+              totalTasks={totalTasks}
+              tasksCompleted={tasksCompleted}
+              latestTasks={latestTasks}
+            />
             <br />
-            <div
-              style={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "space-between",
-              }}
-            >
-              <h2>Tasks</h2>
-              <div style={{ display: "flex", alignSelf: "center" }}>
-                <Input
-                  value={searchText}
-                  onChange={handleSearch}
-                  prefix={<SearchOutlined />}
-                  placeholder="Search task by name"
-                  style={{ marginRight: "10px" }}
-                />
-                <Button>+ New Task</Button>
-              </div>
-            </div>
+            <TaskListHeader
+              setSearchText={searchText}
+              handleSearch={handleSearch}
+              setIsModalAddVisible={setIsModalAddVisible}
+            />
+            <br />
             <TaskListCard
               filteredTask={filteredTask}
               setFilteredTask={setFilteredTask}
               setReloadData={setReloadData}
             />
-          </div>
+          </>
         ) : (
-          <NoTaskCard />
+          <NoTaskCard setIsModalAddVisible={setIsModalAddVisible} />
         )}
+        <AddTaskModal
+          isModalAddVisible={isModalAddVisible}
+          setIsModalAddVisible={setIsModalAddVisible}
+          taskName={taskName}
+          setTaskName={setTaskName}
+          handleAddTask={handleAddTask}
+        />
       </Content>
     </Layout>
   );
