@@ -13,24 +13,12 @@ import TaskItem from "./TaskItem";
 import { updateTask, deleteTask } from "../../service/taskAPI";
 import useTaskListStyle from "../TaskListStyle";
 
-export default function TaskListCard({
-  taskList,
-  getAllTaskListData,
-  setReloadData,
-}) {
+export default function TaskListCard({ taskList, setReloadData, isLoading }) {
   const taskListClasses = useTaskListStyle();
 
   const [isEditingModalVisible, setIsEditingModalVisible] = useState(false);
   const [taskName, setTaskName] = useState("");
   const [editingTaskData, setEditingTaskData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getAllTaskListData();
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   function markTaskToUpdated(taskItem) {
     setIsEditingModalVisible(true);
@@ -44,7 +32,7 @@ export default function TaskListCard({
     });
     message.success(updateTaskResult.msg);
     setIsEditingModalVisible(false);
-    getAllTaskListData();
+    setReloadData(true);
   }
 
   async function markTaskCompleted(taskItem) {
@@ -54,14 +42,12 @@ export default function TaskListCard({
     };
     const updateResult = await updateTask(taskItem._id, param);
     message.success(updateResult.msg);
-    getAllTaskListData();
     setReloadData(true);
   }
 
   async function markTaskDeleted(taskId) {
     const deleteResult = await deleteTask(taskId);
     message.success(deleteResult.msg);
-    getAllTaskListData();
     setReloadData(true);
   }
 
@@ -71,7 +57,7 @@ export default function TaskListCard({
         <Skeleton />
       ) : (
         <List>
-          {taskList.length ? (
+          {taskList && taskList.length !== 0 ? (
             taskList.map((taskItem) => {
               return (
                 <TaskItem
