@@ -12,7 +12,14 @@ const useStyles = createUseStyles({
     marginTop: "10px",
     width: "100%",
   },
-  cardContainer: {
+  noTaskCardContainer: {
+    height: "80vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "#F4F4F6",
+  },
+  loginContainer: {
     height: "100vh",
     display: "flex",
     alignItems: "center",
@@ -22,7 +29,7 @@ const useStyles = createUseStyles({
   card: {
     width: "300px",
   },
-  noTaskButton: {
+  button: {
     width: "100%",
   },
   logoutLabel: {
