@@ -21,7 +21,7 @@ function LoginPage() {
   }
 
   return (
-    <div className={dashboardClasses.cardContainer}>
+    <div className={dashboardClasses.loginContainer}>
       <Card
         title={<Title level={3}>Login</Title>}
         className={dashboardClasses.card}
@@ -37,7 +37,12 @@ function LoginPage() {
               data-testid="name"
             />
           </Form.Item>
-          <Button type="primary" htmlType="submit" data-testid="login-button">
+          <Button
+            className={dashboardClasses.button}
+            type="primary"
+            htmlType="submit"
+            data-testid="login-button"
+          >
             Login
           </Button>
         </Form>
