@@ -40,10 +40,12 @@ function Dashboard() {
   }, [reloadData]);
 
   useEffect(() => {
-    setIsLoading(true);
     loadDashboardData();
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
+    if (totalTasks === 0) {
+      setIsLoading(true);
+      const timer = setTimeout(() => setIsLoading(false), 2000);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   function handleSearch(e) {
@@ -59,16 +61,6 @@ function Dashboard() {
     history.push("/");
   }
 
-  function DashboardView() {
-    if (totalTasks === 0) {
-      return <NoTaskCard setIsAddingNewTask={setIsAddingNewTask} />;
-    }
-  }
-
-  if (totalTasks === 0) {
-    return <NoTaskCard />;
-  }
-
   return (
     <Layout className="layout">
       <Header>
@@ -80,55 +72,60 @@ function Dashboard() {
         <a onClick={handleLogout}>Logout</a>
       </Header>
       <Content>
-        <div style={{ padding: "40px" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexFlow: "wrap",
-            }}
-          >
-            <TaskCompletedCard
-              isLoading={isLoading}
-              totalTasks={totalTasks}
-              tasksCompleted={tasksCompleted}
-            />
-            <LatestCreatedCard
-              isLoading={isLoading}
-              latestTasks={latestTasks}
-            />
-            <ChartGraph
-              isLoading={isLoading}
-              totalTasks={totalTasks}
-              tasksCompleted={tasksCompleted}
-            />
-          </div>
-          <br />
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "space-between",
-            }}
-          >
-            <h2>Tasks</h2>
-            <div style={{ display: "flex", alignSelf: "center" }}>
-              <Input
-                value={searchText}
-                onChange={handleSearch}
-                prefix={<SearchOutlined />}
-                placeholder="Search task by name"
-                style={{ marginRight: "10px" }}
+        {totalTasks !== 0 ? (
+          <div style={{ padding: "40px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexFlow: "wrap",
+              }}
+            >
+              <TaskCompletedCard
+                isLoading={isLoading}
+                totalTasks={totalTasks}
+                tasksCompleted={tasksCompleted}
               />
-              <Button>+ New Task</Button>
+              <LatestCreatedCard
+                isLoading={isLoading}
+                latestTasks={latestTasks}
+              />
+              <ChartGraph
+                isLoading={isLoading}
+                totalTasks={totalTasks}
+                tasksCompleted={tasksCompleted}
+              />
             </div>
+
+            <br />
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "space-between",
+              }}
+            >
+              <h2>Tasks</h2>
+              <div style={{ display: "flex", alignSelf: "center" }}>
+                <Input
+                  value={searchText}
+                  onChange={handleSearch}
+                  prefix={<SearchOutlined />}
+                  placeholder="Search task by name"
+                  style={{ marginRight: "10px" }}
+                />
+                <Button>+ New Task</Button>
+              </div>
+            </div>
+            <TaskListCard
+              filteredTask={filteredTask}
+              setFilteredTask={setFilteredTask}
+              setReloadData={setReloadData}
+            />
           </div>
-          <TaskListCard
-            filteredTask={filteredTask}
-            setFilteredTask={setFilteredTask}
-            setReloadData={setReloadData}
-          />
-        </div>
+        ) : (
+          <NoTaskCard />
+        )}
       </Content>
     </Layout>
   );
