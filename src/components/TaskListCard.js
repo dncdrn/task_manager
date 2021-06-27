@@ -11,7 +11,7 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
-import { updateTask, deleteTask, getAllTasks } from "../Service/taskAPI";
+import { updateTask, deleteTask, getAllTasks } from "../service/taskAPI";
 const { Title } = Typography;
 
 export default function TaskListCard({

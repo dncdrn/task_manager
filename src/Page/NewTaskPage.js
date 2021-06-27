@@ -1,6 +1,6 @@
 import { Button, Card, Input, message, Typography } from "antd";
 import React, { useState } from "react";
-import { addTask } from "../Service/taskAPI";
+import { addTask } from "../service/taskAPI";
 import { StyledDiv } from "./Login/LoginStyle";
 import { useHistory } from "react-router-dom";
 const { Title } = Typography;

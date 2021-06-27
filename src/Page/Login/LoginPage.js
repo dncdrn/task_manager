@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "antd";
 import { StyledDiv } from "./LoginStyle";
-import { loginAccount } from "../../Service/loginAPI";
+import { loginAccount } from "../../service/loginAPI";
 import { Input, Form, Button, message } from "antd";
 import { useHistory } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
