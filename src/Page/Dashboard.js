@@ -15,10 +15,10 @@ function Dashboard() {
   const [tasksCompleted, setTasksCompleted] = useState(undefined);
   const [latestTasks, setLatestTasks] = useState([]);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [searchText, setSearchText] = useState("");
-  const [taskList, setTaskList] = useState([]);
+  const [taskList, setTaskList] = useState(undefined);
 
   const [reloadData, setReloadData] = useState(false);
 
@@ -26,9 +26,8 @@ function Dashboard() {
   const [isModalAddVisible, setIsModalAddVisible] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     getDashboardWidgetData();
-    setIsLoading(false);
+    getAllTaskListData();
   }, []);
 
   useEffect(() => {
@@ -44,11 +43,13 @@ function Dashboard() {
     setTotalTasks(dashboardResult.totalTasks);
     setTasksCompleted(dashboardResult.tasksCompleted);
     setLatestTasks(dashboardResult.latestTasks);
+    setIsLoading(false);
   }
 
   async function getAllTaskListData() {
     const taskListDataResult = await getAllTasks();
     setTaskList(taskListDataResult.tasks);
+    setIsLoading(false);
   }
 
   async function handleAddTask() {
@@ -87,7 +88,7 @@ function Dashboard() {
             taskList={taskList}
             setTaskList={setTaskList}
             setReloadData={setReloadData}
-            getAllTaskListData={getAllTaskListData}
+            isLoading={isLoading}
           />
         </>
       ) : (
