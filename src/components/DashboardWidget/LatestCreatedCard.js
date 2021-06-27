@@ -2,9 +2,13 @@ import { Card, Skeleton, Typography } from "antd";
 import React from "react";
 const { Text, Title } = Typography;
 
-export default function LatestCreatedCard({ latestTasks, isLoading }) {
+export default function LatestCreatedCard({
+  latestTasks,
+  isLoading,
+  dashboardWidgetClasses,
+}) {
   return (
-    <Card style={{ width: "400px" }}>
+    <Card className={dashboardWidgetClasses.widgetCard}>
       {isLoading ? (
         <Skeleton />
       ) : (

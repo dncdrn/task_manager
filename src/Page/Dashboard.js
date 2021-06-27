@@ -17,7 +17,7 @@ function Dashboard() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchText, setSearchText] = useState("");
-  const [filteredTask, setFilteredTask] = useState([]);
+  const [taskList, setTaskList] = useState([]);
 
   const [reloadData, setReloadData] = useState(false);
 
@@ -25,12 +25,9 @@ function Dashboard() {
   const [isModalAddVisible, setIsModalAddVisible] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     getDashboardWidgetData();
-    if (totalTasks === 0) {
-      setIsLoading(true);
-      const timer = setTimeout(() => setIsLoading(false), 2000);
-      return () => clearTimeout(timer);
-    }
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -50,7 +47,7 @@ function Dashboard() {
 
   async function getAllTaskListData() {
     const taskListDataResult = await getAllTasks();
-    setFilteredTask(taskListDataResult.tasks);
+    setTaskList(taskListDataResult.tasks);
   }
 
   async function handleAddTask() {
@@ -63,10 +60,10 @@ function Dashboard() {
 
   function handleSearch(e) {
     setSearchText(e.target.value);
-    const filteredTaskArr = latestTasks.filter((task) =>
+    const taskListArr = latestTasks.filter((task) =>
       task.name.includes(e.target.value)
     );
-    setFilteredTask(filteredTaskArr);
+    setTaskList(taskListArr);
   }
 
   return (
@@ -87,10 +84,10 @@ function Dashboard() {
           />
           <br />
           <TaskListCard
-            filteredTask={filteredTask}
-            setFilteredTask={setFilteredTask}
+            taskList={taskList}
+            setTaskList={setTaskList}
             setReloadData={setReloadData}
-            getAllTaskListData={getAllTaskListData}
+            getAllTaskListData={fetchMyAPI}
           />
         </>
       ) : (

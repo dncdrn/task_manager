@@ -2,6 +2,7 @@ import React from "react";
 import ChartGraph from "./ChartGraph";
 import LatestCreatedCard from "./LatestCreatedCard";
 import TaskCompletedCard from "./TaskCompletedCard";
+import useDashboardWidgetStyle from "./DashboardWidgetStyle";
 
 export default function DashboardWidget({
   isLoading,
@@ -9,27 +10,26 @@ export default function DashboardWidget({
   tasksCompleted,
   latestTasks,
 }) {
+  const dashboardWidgetClasses = useDashboardWidgetStyle();
   return (
-    <div style={{ padding: "40px" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexFlow: "wrap",
-        }}
-      >
-        <TaskCompletedCard
-          isLoading={isLoading}
-          totalTasks={totalTasks}
-          tasksCompleted={tasksCompleted}
-        />
-        <LatestCreatedCard isLoading={isLoading} latestTasks={latestTasks} />
-        <ChartGraph
-          isLoading={isLoading}
-          totalTasks={totalTasks}
-          tasksCompleted={tasksCompleted}
-        />
-      </div>
+    <div className={dashboardWidgetClasses.container}>
+      <TaskCompletedCard
+        dashboardWidgetClasses={dashboardWidgetClasses}
+        isLoading={isLoading}
+        totalTasks={totalTasks}
+        tasksCompleted={tasksCompleted}
+      />
+      <LatestCreatedCard
+        dashboardWidgetClasses={dashboardWidgetClasses}
+        isLoading={isLoading}
+        latestTasks={latestTasks}
+      />
+      <ChartGraph
+        dashboardWidgetClasses={dashboardWidgetClasses}
+        isLoading={isLoading}
+        totalTasks={totalTasks}
+        tasksCompleted={tasksCompleted}
+      />
     </div>
   );
 }

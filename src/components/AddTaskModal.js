@@ -1,6 +1,7 @@
 import { Button, Input } from "antd";
 import Modal from "antd/lib/modal/Modal";
 import React from "react";
+import dashboardStyle from "./DashboardStyle";
 
 export default function AddTaskModal({
   isModalAddVisible,
@@ -9,6 +10,8 @@ export default function AddTaskModal({
   setTaskName,
   handleAddTask,
 }) {
+  const dashboardClasses = dashboardStyle();
+
   return (
     <Modal
       onCancel={() => setIsModalAddVisible(false)}
@@ -22,7 +25,7 @@ export default function AddTaskModal({
         placeholder="Task Name"
       />
       <Button
-        style={{ marginTop: "5px", width: "100%" }}
+        className={dashboardClasses.modalButton}
         type="primary"
         onClick={handleAddTask}
       >

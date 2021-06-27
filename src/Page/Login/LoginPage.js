@@ -1,13 +1,15 @@
 import React from "react";
 import { Card } from "antd";
-import { StyledDiv } from "./LoginStyle";
 import { loginAccount } from "../../service/loginAPI";
-import { Input, Form, Button, message } from "antd";
+import { Input, Form, Button } from "antd";
 import { useHistory } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
+import dashboardStyle from "../../components/DashboardStyle";
+import Title from "antd/lib/typography/Title";
 
 function LoginPage() {
   let history = useHistory();
+  const dashboardClasses = dashboardStyle();
 
   async function onFormSubmit(values) {
     // adding api key to values
@@ -20,8 +22,11 @@ function LoginPage() {
   }
 
   return (
-    <StyledDiv>
-      <Card title="Login" style={{ width: 300 }}>
+    <div className={dashboardClasses.cardContainer}>
+      <Card
+        title={<Title level={3}>Login</Title>}
+        className={dashboardClasses.card}
+      >
         <Form onFinish={onFormSubmit}>
           <Form.Item name="id">
             <Input placeholder="Id" />
@@ -34,7 +39,7 @@ function LoginPage() {
           </Button>
         </Form>
       </Card>
-    </StyledDiv>
+    </div>
   );
 }
 export default LoginPage;

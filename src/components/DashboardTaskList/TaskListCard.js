@@ -3,7 +3,6 @@ import {
   List,
   message,
   Modal,
-  Typography,
   Input,
   Button,
   Skeleton,
@@ -12,12 +11,15 @@ import {
 import React, { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
 import { updateTask, deleteTask } from "../../service/taskAPI";
+import useTaskListStyle from "../TaskListStyle";
 
 export default function TaskListCard({
-  filteredTask,
+  taskList,
   getAllTaskListData,
   setReloadData,
 }) {
+  const taskListClasses = useTaskListStyle();
+
   const [isEditingModalVisible, setIsEditingModalVisible] = useState(false);
   const [taskName, setTaskName] = useState("");
   const [editingTaskData, setEditingTaskData] = useState({});
@@ -64,13 +66,13 @@ export default function TaskListCard({
   }
 
   return (
-    <Card>
+    <Card className={taskListClasses.taskContainer}>
       {isLoading ? (
         <Skeleton />
       ) : (
         <List>
-          {filteredTask.length ? (
-            filteredTask.map((taskItem) => {
+          {taskList.length ? (
+            taskList.map((taskItem) => {
               return (
                 <TaskItem
                   key={taskItem.name}
@@ -98,7 +100,7 @@ export default function TaskListCard({
           placeholder="Task Name"
         />
         <Button
-          style={{ marginTop: "5px", width: "100%" }}
+          className={taskListClasses.modalButton}
           type="primary"
           onClick={handleEditTask}
         >

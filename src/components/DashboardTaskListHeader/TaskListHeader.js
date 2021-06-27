@@ -2,28 +2,24 @@ import { Button, Input } from "antd";
 import React from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import Title from "antd/lib/typography/Title";
+import useTaskListStyle from "../TaskListStyle";
 
 export default function TaskListHeader({
   searchText,
   handleSearch,
   setIsModalAddVisible,
 }) {
+  const taskListClasses = useTaskListStyle();
   return (
-    <div
-      style={{
-        display: "flex",
-        width: "100%",
-        justifyContent: "space-between",
-      }}
-    >
+    <div className={taskListClasses.header}>
       <Title level={3}>Tasks</Title>
-      <div style={{ display: "flex", alignSelf: "center" }}>
+      <div className={taskListClasses.container}>
         <Input
           value={searchText}
           onChange={handleSearch}
           prefix={<SearchOutlined />}
           placeholder="Search task by name"
-          style={{ marginRight: "10px" }}
+          className={taskListClasses.input}
         />
         <Button onClick={() => setIsModalAddVisible(true)}>+ New Task</Button>
       </div>
