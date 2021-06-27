@@ -7,24 +7,24 @@ export default function ChartGraph({ dashboardWidgetClasses }) {
   const { totalTasks, tasksCompleted, isLoading } = useContext(
     DashboardWidgetContext
   );
+  const taskToComplete = totalTasks - tasksCompleted;
   return (
-    <Card className={dashboardWidgetClasses.widgetCard}>
+    <div className={dashboardWidgetClasses.widgetCard}>
       {isLoading ? (
-        <Skeleton />
+        <Skeleton active className={dashboardWidgetClasses.chartSkeleton} />
       ) : (
         <Chart
           chartType="PieChart"
           width={"100%"}
-          height={"150px"}
-          loader={<Skeleton />}
+          height={"190px"}
           data={[
-            ["TotalTasks", "TasksCompleted"],
-            ["Number of Tasks", totalTasks],
+            ["TasksCompleted", "TotalTasks"],
             ["Completed Tasks", tasksCompleted],
+            ["Task to Complete", taskToComplete],
           ]}
           rootProps={{ "data-testid": "1" }}
         />
       )}
-    </Card>
+    </div>
   );
 }
