@@ -1,6 +1,7 @@
 import { Button, Input } from "antd";
 import React from "react";
 import { SearchOutlined } from "@ant-design/icons";
+import Title from "antd/lib/typography/Title";
 
 export default function TaskListHeader({
   searchText,
@@ -15,7 +16,7 @@ export default function TaskListHeader({
         justifyContent: "space-between",
       }}
     >
-      <h2>Tasks</h2>
+      <Title level={3}>Tasks</Title>
       <div style={{ display: "flex", alignSelf: "center" }}>
         <Input
           value={searchText}
