@@ -19,6 +19,7 @@ function Dashboard() {
 
   const [searchText, setSearchText] = useState("");
   const [taskList, setTaskList] = useState(undefined);
+  const [filteredTaskList, setFilteredTaskList] = useState(undefined);
 
   const [reloadData, setReloadData] = useState(false);
 
@@ -49,6 +50,7 @@ function Dashboard() {
   async function getAllTaskListData() {
     const taskListDataResult = await getAllTasks();
     setTaskList(taskListDataResult.tasks);
+    setFilteredTaskList(taskListDataResult.tasks);
     setIsLoading(false);
   }
 
@@ -62,10 +64,10 @@ function Dashboard() {
 
   function handleSearch(e) {
     setSearchText(e.target.value);
-    const taskListArr = latestTasks.filter((task) =>
+    const taskListArr = taskList.filter((task) =>
       task.name.includes(e.target.value)
     );
-    setTaskList(taskListArr);
+    setFilteredTaskList(taskListArr);
   }
 
   return (
@@ -89,6 +91,7 @@ function Dashboard() {
             setTaskList={setTaskList}
             setReloadData={setReloadData}
             isLoading={isLoading}
+            filteredTaskList={filteredTaskList}
           />
         </>
       ) : (

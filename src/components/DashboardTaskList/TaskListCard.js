@@ -13,7 +13,11 @@ import TaskItem from "./TaskItem";
 import { updateTask, deleteTask } from "../../service/taskAPI";
 import useTaskListStyle from "../TaskListStyle";
 
-export default function TaskListCard({ taskList, setReloadData, isLoading }) {
+export default function TaskListCard({
+  setReloadData,
+  isLoading,
+  filteredTaskList,
+}) {
   const taskListClasses = useTaskListStyle();
 
   const [isEditingModalVisible, setIsEditingModalVisible] = useState(false);
@@ -54,11 +58,11 @@ export default function TaskListCard({ taskList, setReloadData, isLoading }) {
   return (
     <Card className={taskListClasses.taskContainer}>
       {isLoading ? (
-        <Skeleton />
+        <Skeleton active />
       ) : (
         <List>
-          {taskList && taskList.length !== 0 ? (
-            taskList.map((taskItem) => {
+          {filteredTaskList && filteredTaskList.length !== 0 ? (
+            filteredTaskList.map((taskItem) => {
               return (
                 <TaskItem
                   key={taskItem.name}
