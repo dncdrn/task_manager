@@ -11,13 +11,13 @@ import DashboardLayout from "../components/DashboardLayout";
 import { DashboardWidgetContext } from "../components/DashboardWidgetContext";
 
 function Dashboard() {
-  const [totalTasks, setTotalTasks] = useState(undefined);
-  const [tasksCompleted, setTasksCompleted] = useState(undefined);
+  const [totalTasks, setTotalTasks] = useState();
+  const [tasksCompleted, setTasksCompleted] = useState();
   const [latestTasks, setLatestTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
-  const [taskList, setTaskList] = useState(undefined);
-  const [filteredTaskList, setFilteredTaskList] = useState(undefined);
+  const [taskList, setTaskList] = useState();
+  const [filteredTaskList, setFilteredTaskList] = useState();
   const [reloadData, setReloadData] = useState(false);
   const [taskName, setTaskName] = useState("");
   const [isModalAddVisible, setIsModalAddVisible] = useState(false);
@@ -45,8 +45,11 @@ function Dashboard() {
 
   async function getAllTaskListData() {
     const taskListDataResult = await getAllTasks();
-    setTaskList(taskListDataResult.tasks);
-    setFilteredTaskList(taskListDataResult.tasks);
+    const sortedByCompletedTask = taskListDataResult.tasks.sort(
+      (a, b) => a.completed - b.completed
+    );
+    setTaskList(sortedByCompletedTask);
+    setFilteredTaskList(sortedByCompletedTask);
     setIsLoading(false);
   }
 
