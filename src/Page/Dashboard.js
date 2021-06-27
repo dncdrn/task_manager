@@ -8,10 +8,11 @@ import TaskListHeader from "../components/DashboardTaskListHeader/TaskListHeader
 import AddTaskModal from "../components/AddTaskModal";
 import { addTask, getAllTasks } from "../service/taskAPI";
 import DashboardLayout from "../components/DashboardLayout";
+import { DashboardWidgetContext } from "../components/DashboardWidgetContext";
 
 function Dashboard() {
-  const [totalTasks, setTotalTasks] = useState(0);
-  const [tasksCompleted, setTasksCompleted] = useState(0);
+  const [totalTasks, setTotalTasks] = useState(undefined);
+  const [tasksCompleted, setTasksCompleted] = useState(undefined);
   const [latestTasks, setLatestTasks] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -70,12 +71,11 @@ function Dashboard() {
     <DashboardLayout>
       {totalTasks !== 0 ? (
         <>
-          <DashboardWidget
-            isLoading={isLoading}
-            totalTasks={totalTasks}
-            tasksCompleted={tasksCompleted}
-            latestTasks={latestTasks}
-          />
+          <DashboardWidgetContext.Provider
+            value={{ isLoading, totalTasks, tasksCompleted, latestTasks }}
+          >
+            <DashboardWidget />
+          </DashboardWidgetContext.Provider>
           <br />
           <TaskListHeader
             setSearchText={searchText}
@@ -87,7 +87,7 @@ function Dashboard() {
             taskList={taskList}
             setTaskList={setTaskList}
             setReloadData={setReloadData}
-            getAllTaskListData={fetchMyAPI}
+            getAllTaskListData={getAllTaskListData}
           />
         </>
       ) : (
