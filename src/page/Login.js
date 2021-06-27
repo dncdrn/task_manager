@@ -29,7 +29,7 @@ function LoginPage() {
   }
 
   return (
-    <div className={dashboardClasses.cardContainer}>
+    <div className={dashboardClasses.loginContainer}>
       <Card
         title={<Title level={3}>Login</Title>}
         className={dashboardClasses.card}
@@ -39,9 +39,13 @@ function LoginPage() {
             <Input placeholder="Id" />
           </Form.Item>
           <Form.Item name="name">
-            <Input prefix={<SearchOutlined />} placeholder="Name" />
+            <Input placeholder="Name" />
           </Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button
+            className={dashboardClasses.button}
+            type="primary"
+            htmlType="submit"
+          >
             Login
           </Button>
         </Form>
