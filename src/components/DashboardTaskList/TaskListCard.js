@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
 import { updateTask, deleteTask } from "../../service/taskAPI";
 import useTaskListStyle from "../TaskListStyle";
+import UpdateTaskModal from "../UpdateTaskModal";
 
 export default function TaskListCard({
   setReloadData,
@@ -42,7 +43,7 @@ export default function TaskListCard({
   async function markTaskCompleted(taskItem) {
     const param = {
       name: taskItem.name,
-      completed: true,
+      completed: !taskItem.completed,
     };
     const updateResult = await updateTask(taskItem._id, param);
     message.success(updateResult.msg);
@@ -78,25 +79,14 @@ export default function TaskListCard({
           )}
         </List>
       )}
-      <Modal
-        title="+ New Task"
-        footer={null}
-        visible={isEditingModalVisible}
-        onCancel={() => setIsEditingModalVisible(false)}
-      >
-        <Input
-          value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
-          placeholder="Task Name"
-        />
-        <Button
-          className={taskListClasses.modalButton}
-          type="primary"
-          onClick={handleEditTask}
-        >
-          + New Task
-        </Button>
-      </Modal>
+      <UpdateTaskModal
+        isEditingModalVisible={isEditingModalVisible}
+        setIsEditingModalVisible={setIsEditingModalVisible}
+        setTaskName={setTaskName}
+        taskName={taskName}
+        handleEditTask={handleEditTask}
+        taskListClasses={taskListClasses}
+      />
     </Card>
   );
 }
