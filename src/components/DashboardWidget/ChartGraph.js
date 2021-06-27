@@ -1,4 +1,4 @@
-import { Card, Skeleton } from "antd";
+import { Skeleton } from "antd";
 import React, { useContext } from "react";
 import Chart from "react-google-charts";
 import { DashboardWidgetContext } from "../DashboardWidgetContext";
