@@ -1,13 +1,12 @@
 import { Card, Skeleton } from "antd";
-import React from "react";
+import React, { useContext } from "react";
 import Chart from "react-google-charts";
+import { DashboardWidgetContext } from "../DashboardWidgetContext";
 
-export default function ChartGraph({
-  totalTasks,
-  tasksCompleted,
-  isLoading,
-  dashboardWidgetClasses,
-}) {
+export default function ChartGraph({ dashboardWidgetClasses }) {
+  const { totalTasks, tasksCompleted, isLoading } = useContext(
+    DashboardWidgetContext
+  );
   return (
     <Card className={dashboardWidgetClasses.widgetCard}>
       {isLoading ? (

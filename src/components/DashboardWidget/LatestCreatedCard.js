@@ -1,12 +1,12 @@
 import { Card, Skeleton, Typography } from "antd";
-import React from "react";
+import React, { useContext } from "react";
+import { DashboardWidgetContext } from "../DashboardWidgetContext";
+
 const { Text, Title } = Typography;
 
-export default function LatestCreatedCard({
-  latestTasks,
-  isLoading,
-  dashboardWidgetClasses,
-}) {
+export default function LatestCreatedCard({ dashboardWidgetClasses }) {
+  const { latestTasks, isLoading } = useContext(DashboardWidgetContext);
+
   return (
     <Card className={dashboardWidgetClasses.widgetCard}>
       {isLoading ? (
@@ -15,7 +15,7 @@ export default function LatestCreatedCard({
         <>
           <Title level={3}>Latest Created Tasks</Title>
           <ul>
-            {latestTasks.length !== 0 ? (
+            {latestTasks && latestTasks.length !== 0 ? (
               latestTasks.map((task) => (
                 <li key={task.name}>
                   <Text delete={task.completed}>{task.name}</Text>

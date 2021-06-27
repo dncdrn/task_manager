@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Typography, Card, Skeleton } from "antd";
 import useTaskListStyle from "../TaskListStyle";
+import { DashboardWidgetContext } from "../DashboardWidgetContext";
 
 const { Title } = Typography;
 
-export default function TaskCompletedCard({
-  totalTasks,
-  tasksCompleted,
-  isLoading,
-  dashboardWidgetClasses,
-}) {
+export default function TaskCompletedCard({ dashboardWidgetClasses }) {
   const taskListClasses = useTaskListStyle();
-
+  const { totalTasks, tasksCompleted, isLoading } = useContext(
+    DashboardWidgetContext
+  );
   return (
     <Card className={dashboardWidgetClasses.widgetCard}>
       {isLoading ? (
