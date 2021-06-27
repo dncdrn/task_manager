@@ -48,7 +48,7 @@ function Dashboard() {
     const sortedByCompletedTask = taskListDataResult.tasks.sort(
       (a, b) => a.completed - b.completed
     );
-    setTaskList(sortedByCompletedTask);
+    setTaskList(taskListDataResult.tasks);
     setFilteredTaskList(sortedByCompletedTask);
     setIsLoading(false);
   }
