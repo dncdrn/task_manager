@@ -1,6 +1,6 @@
 import { Card, Button } from "antd";
 import React from "react";
-import { StyledDiv } from "../Page/Login/LoginStyle";
+import { StyledDiv } from "../page/Login/LoginStyle";
 import { useHistory } from "react-router-dom";
 
 export default function NoTaskCard() {
