@@ -1,7 +1,7 @@
 import { Checkbox, Typography, List } from "antd";
 import React from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { updateTask } from "../service/taskAPI";
+import { updateTask } from "../Service/taskAPI";
 const { Title } = Typography;
 
 export default function TaskItem({
