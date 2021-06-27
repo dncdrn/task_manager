@@ -12,7 +12,13 @@ const useDashboardWidgetStyle = createUseStyles({
     borderRadius: "12px",
     margin: "5px",
     width: "400px",
-    height: "190px",
+    height: "200px",
+    overflow: "hidden",
+    background: "white",
+  },
+  chartSkeleton: {
+    margin: "10px",
+    width: "95%",
   },
 });
 
