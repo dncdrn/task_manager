@@ -25,6 +25,10 @@ const useTaskListStyle = createUseStyles({
   taskContainer: {
     borderRadius: "12px",
   },
+  modalButton: {
+    marginTop: "10px",
+    width: "100%",
+  },
 });
 
 export default useTaskListStyle;
