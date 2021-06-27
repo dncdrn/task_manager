@@ -6,11 +6,11 @@ import dashboardStyle from "./DashboardStyle";
 export default function NoTaskCard({ setIsModalAddVisible }) {
   const dashboardClasses = dashboardStyle();
   return (
-    <div className={dashboardClasses.cardContainer}>
+    <div className={dashboardClasses.noTaskCardContainer}>
       <Card className={dashboardClasses.card}>
         <Title level={3}>No Task</Title>
         <Button
-          className={dashboardClasses.noTaskButton}
+          className={dashboardClasses.button}
           type="primary"
           onClick={() => setIsModalAddVisible(true)}
         >
