@@ -14,15 +14,11 @@ function Dashboard() {
   const [totalTasks, setTotalTasks] = useState(undefined);
   const [tasksCompleted, setTasksCompleted] = useState(undefined);
   const [latestTasks, setLatestTasks] = useState([]);
-
   const [isLoading, setIsLoading] = useState(true);
-
   const [searchText, setSearchText] = useState("");
   const [taskList, setTaskList] = useState(undefined);
   const [filteredTaskList, setFilteredTaskList] = useState(undefined);
-
   const [reloadData, setReloadData] = useState(false);
-
   const [taskName, setTaskName] = useState("");
   const [isModalAddVisible, setIsModalAddVisible] = useState(false);
 

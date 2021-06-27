@@ -10,6 +10,7 @@ import Title from "antd/lib/typography/Title";
 function LoginPage() {
   let history = useHistory();
   const dashboardClasses = dashboardStyle();
+
   async function onFormSubmit(values) {
     // adding api key to values
     values.apiKey = process.env.REACT_APP_API_KEY;
