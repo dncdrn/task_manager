@@ -8,7 +8,7 @@ export default function TaskItem({
   taskItem,
   markTaskCompleted,
   markTaskDeleted,
-  markTaskToUpdate,
+  markTaskToUpdated,
 }) {
   return (
     <List.Item
@@ -17,7 +17,7 @@ export default function TaskItem({
         <Title
           level={4}
           key="list-loadmore-edit"
-          onClick={() => markTaskToUpdate(taskItem)}
+          onClick={() => markTaskToUpdated(taskItem)}
         >
           <EditOutlined />
         </Title>,
