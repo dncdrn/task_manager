@@ -87,7 +87,6 @@ function Dashboard() {
           />
           <br />
           <TaskListCard
-            taskList={taskList}
             setTaskList={setTaskList}
             setReloadData={setReloadData}
             isLoading={isLoading}
