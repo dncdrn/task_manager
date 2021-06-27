@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LoginPage from "./page/Login/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./page/Dashboard";
-import NewTaskPage from "./page/NewTaskPage";
 import "antd/dist/antd.css";
 
 function App() {
@@ -14,7 +13,6 @@ function App() {
           <LoginPage />
         </Route>
         <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <ProtectedRoute path="/new_task" component={NewTaskPage} />
       </Switch>
     </Router>
   );
