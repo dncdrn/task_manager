@@ -30,7 +30,7 @@ export default function TaskListCard({
     return () => clearTimeout(timer);
   }, []);
 
-  function markTaskToUpdate(taskItem) {
+  function markTaskToUpdated(taskItem) {
     setIsEditingModalVisible(true);
     setTaskName(taskItem.name);
     setEditingTaskData(taskItem);
@@ -77,7 +77,7 @@ export default function TaskListCard({
                   taskItem={taskItem}
                   markTaskCompleted={markTaskCompleted}
                   markTaskDeleted={markTaskDeleted}
-                  markTaskToUpdate={markTaskToUpdate}
+                  markTaskToUpdated={markTaskToUpdated}
                 />
               );
             })
