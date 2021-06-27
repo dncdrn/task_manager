@@ -11,12 +11,11 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
-import { updateTask, deleteTask, getAllTasks } from "../../service/taskAPI";
-const { Title } = Typography;
+import { updateTask, deleteTask } from "../../service/taskAPI";
 
 export default function TaskListCard({
   filteredTask,
-  setFilteredTask,
+  getAllTaskListData,
   setReloadData,
 }) {
   const [isEditingModalVisible, setIsEditingModalVisible] = useState(false);
@@ -44,11 +43,6 @@ export default function TaskListCard({
     message.success(updateTaskResult.msg);
     setIsEditingModalVisible(false);
     getAllTaskListData();
-  }
-
-  async function getAllTaskListData() {
-    const taskListDataResult = await getAllTasks();
-    setFilteredTask(taskListDataResult.tasks);
   }
 
   async function markTaskCompleted(taskItem) {
