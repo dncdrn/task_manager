@@ -66,6 +66,7 @@ export default function TaskListCard({
     const deleteResult = await deleteTask(taskId);
     message.success(deleteResult.msg);
     getAllTaskListData();
+    setReloadData(true);
   }
 
   return (
